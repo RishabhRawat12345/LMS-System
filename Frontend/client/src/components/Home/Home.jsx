@@ -1,0 +1,67 @@
+import React, { useEffect } from "react";
+import Nav from "../nav/Nav";
+import home from "../../assets/home1.jpg";
+import { SiViaplay } from "react-icons/si";
+import Footer from "../Footer/Footer";
+import CardPage from "../Educator/CardPage";
+import { useNavigate } from "react-router-dom";
+const Home = ({ userdata,coursedata }) => {
+  const navigate=useNavigate();
+  useEffect(() => {
+    const data=JSON.parse(localStorage.getItem("tokensign"))
+    console.log("home", userdata);
+    console.log("the course data",coursedata);
+    console.log("signin token",data);
+  }, [userdata]);
+
+  return (
+    <div className="min-h-screen w-full flex flex-col">
+      <div className="w-full flex-1 relative">
+        <div
+          className="
+            absolute inset-0
+            flex flex-col
+             items-center
+            text-white text-center
+            font-bold
+            px-4
+            top-5
+            text-2xl sm:text-3xl md:text-5xl lg:text-7xl lg:mt-20
+          "
+        >
+          <span>Grow Your Skills to Advance</span>
+          <span>Your Career Path</span>
+          <div className="flex gap-4 mt-[80%] md:mt-10 absolute lg:mt-50">
+
+            <button  onClick={()=>{
+              console.log("cliced")
+              navigate("/viewc",{
+              state:{coursedata}
+            })}} className="px-6  flex py-3 border border-black text-black text-sm md:text-lg hover:bg-white hover:text-black transition rounded lg:border-white lg:text-white gap-3">
+              View All Courses
+              <SiViaplay className="h-5 w-5 mt-1"/>
+            </button>
+
+            <button className="px-6 py-3 bg-black text-white text-sm md:text-lg hover:bg-gray-200 transition rounded lg:bg-white lg:text-black">
+              Get Started
+            </button>
+
+          </div>
+        </div>
+        <img
+          src={home}
+          alt="home"
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <Footer/>
+
+      <div className="last w-full flex flex-col justify-center">
+        <h1 className="text-2xl font-bold text-center">Our Popular Course</h1>
+        <CardPage coursedata={coursedata}/>
+      </div>
+    </div>
+  );
+};
+
+export default Home;
